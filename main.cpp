@@ -3,7 +3,7 @@ using namespace std;
 
 
 void admin(){
-    cout << "1. See Result\n2. Add new voters\n3. delete voter\n4. delete all voters\n0. RESET()"<<endl;
+    cout << "1. See Result\n2. Add new voters\n3. delete voter\n4. delete all voters\n5. RESET()\n6.Start Setup"<<endl;
 }
 
 void voting(){
