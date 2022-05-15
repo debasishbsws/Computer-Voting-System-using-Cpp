@@ -16,6 +16,7 @@ public:
     //  read(string fileName);
 };
 
+//rewrite the whole file
 void FileWritting::write(string fileName, string data)
 {
     ofstream out(fileName);
@@ -23,6 +24,7 @@ void FileWritting::write(string fileName, string data)
     out.close();
 }
 
+//append a new line to the file
 void FileWritting::appendNewLine(string fileName, string data)
 {
     ofstream out(fileName, std::ios_base::app);
@@ -30,6 +32,7 @@ void FileWritting::appendNewLine(string fileName, string data)
     out.close();
 }
 
+//delete specific line number
 void FileWritting::deleteLineByNumber(string fileName, int n)
 {
     ifstream ins(fileName);

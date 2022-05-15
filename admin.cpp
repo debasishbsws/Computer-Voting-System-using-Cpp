@@ -4,15 +4,13 @@
 
 using namespace std;
 
-class admin
+class adminC
 {
 private:
     string password = "password";
     FileWritting writter;
 
 public:
-    admin();
-    ~admin();
     void reset();
     void deleteAllVoters();
     void deleteVoter(string id);
@@ -21,7 +19,7 @@ public:
     void seeResult();
 };
 
-void admin::seeResult()
+void adminC::seeResult()
 {
     ifstream in("DATA/Result.txt");
     int voteCount;
@@ -33,7 +31,8 @@ void admin::seeResult()
         cout << line << " get " << voteCount << " Votes." << endl;
     }
 }
-void admin::addVoters()
+
+void adminC::addVoters()
 {
     cout << "Enter how many Voters : ";
     int n;
@@ -41,17 +40,24 @@ void admin::addVoters()
     string VoterName, ID, dob;
     for (int i = 0; i < n; i++)
     {
+        cin.ignore();
         cout << "Enter the name of the Voter " << i + 1 << ": ";
         getline(cin, VoterName);
         cout << "Enter the Voter ID of " << VoterName << ": ";
         getline(cin, ID);
         cout << "Enter the Date of Birth " << VoterName << ": ";
         getline(cin, dob);
-        writter.appendNewLine("DATA/VoterDetails.txt", "\n" + ID + " " + VoterName + " " + dob);
+        writter.appendNewLine("DATA/VoterDetails.txt", ID + " " + VoterName + " " + dob + "\n");
     }
 }
 
-void admin::startSetup()
+void adminC::reset()
+{
+    writter.write("DATA/Result.txt", "NA");
+    writter.write("DATA/AlredyVoted.txt", "");
+}
+
+void adminC::startSetup()
 {
     reset();
     writter.write("DATA/Result.txt", "");
@@ -61,6 +67,7 @@ void admin::startSetup()
     string candidateName, party, symbol;
     for (int i = 0; i < n; i++)
     {
+        cin.ignore();
         cout << "Enter the name of the candidate " << i + 1 << ": ";
         getline(cin, candidateName);
         cout << "Enter the party name of the candidate " << candidateName << ": ";
@@ -71,21 +78,16 @@ void admin::startSetup()
         cout << endl;
     }
 
-    cout << "\n You are Ready to start the Voteing.\n";
+    cout << "\n You are Ready to start the Voting.\n";
 }
 
-void admin::reset()
-{
-    writter.write("DATA/Result.txt", "NA");
-    writter.write("DATA/AlredyVoted.txt", "");
-}
-
-void admin::deleteAllVoters()
+void adminC::deleteAllVoters()
 {
     writter.write("DATA/VoterDetails.txt", "");
 }
 
-void admin::deleteVoter(string ID)
+// delete voter from voter list by ID
+void adminC::deleteVoter(string ID)
 {
     ifstream inVoter("DATA/VoterDetails.txt");
     string id, name, dob;
@@ -97,6 +99,8 @@ void admin::deleteVoter(string ID)
         inVoter >> dob;
         if (id == ID)
         {
+            cout << "Voter Id: " << id << ", Name: " << name << ", DOB: " << dob;
+            cout << "Deleted from the Voter List." << endl;
             writter.deleteLineByNumber("DATA/VoterDetails.txt", n);
             return;
         }
@@ -106,12 +110,3 @@ void admin::deleteVoter(string ID)
         cout << "\n Voter Not Found" << endl;
     inVoter.close();
 }
-
-// admin::admin(/* args */)
-// {
-//     cout << "admin";
-// }
-
-// admin::~admin()
-// {
-// }
