@@ -53,7 +53,7 @@ void adminC::addVoters()
 
 void adminC::reset()
 {
-    writter.write("DATA/Result.txt", "NA");
+    writter.write("DATA/Result.txt", "");
     writter.write("DATA/AlredyVoted.txt", "");
 }
 
