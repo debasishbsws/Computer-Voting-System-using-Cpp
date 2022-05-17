@@ -81,5 +81,6 @@ int main()
         default:
             break;
         }
+        system("cls");
     }
 }
