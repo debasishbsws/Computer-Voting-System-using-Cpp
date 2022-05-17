@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <conio.h>
 #include "fileHandling.cpp"
 
 using namespace std;
@@ -24,12 +25,16 @@ void adminC::seeResult()
     ifstream in("DATA/Result.txt");
     int voteCount;
     string line;
+    in >> voteCount;
+    getline(in, line);
     while (!in.eof())
     {
+        cout << line << " get " << voteCount << " Votes." << endl;
         in >> voteCount;
         getline(in, line);
-        cout << line << " get " << voteCount << " Votes." << endl;
     }
+    in.close();
+    getch();
 }
 
 void adminC::addVoters()
@@ -53,7 +58,7 @@ void adminC::addVoters()
 
 void adminC::reset()
 {
-    writter.write("DATA/Result.txt", "NA");
+    writter.write("DATA/Result.txt", "");
     writter.write("DATA/AlredyVoted.txt", "");
 }
 
