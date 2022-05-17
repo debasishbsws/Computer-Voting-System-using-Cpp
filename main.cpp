@@ -86,15 +86,16 @@ string searchVoter(string id)
 
 bool isAlredyVoted(string id)
 {
-    ifstream av("DATA/AlreadyVoted.txt");
+    ifstream av("DATA/AlredyVoted.txt");
     string ID;
-    while (av.eof())
+    getline(av, ID);
+    while (!av.eof())
     {
-        av >> ID;
-        if (ID == id)
+        if (ID.compare(id) == 0)
         {
             return true;
         }
+        getline(av, ID);
     }
 
     return false;
@@ -105,7 +106,7 @@ void voting()
     ifstream res("DATA/Result.txt");
     if (!res)
     {
-        cout << "NOT SET" << endl;
+        cout << "Result file is not in DATA folder" << endl;
         return;
     }
     if (is_empt(res))
@@ -120,13 +121,24 @@ void voting()
     vector<string> candidate;
     int voteCount;
     string line;
+
+    res >> voteCount;
+    getline(res, line);
     while (!res.eof())
     {
-        res >> voteCount;
         vote.push_back(voteCount);
-        getline(res, line);
         candidate.push_back(line);
+        res >> voteCount;
+        getline(res, line);
     }
+    // vote.push_back(voteCount);
+    // candidate.push_back(line);
+    // for (int i = 0; i < candidate.size(); i++)
+    // {
+    //     string s = to_string(vote[i]) + " " + candidate[i] + "\n";
+    //     cout << s;
+    //     //writter.appendNewLine("DATA/Result.txt", s);
+    // }
 
     while (ch != 0)
     {
@@ -135,9 +147,10 @@ void voting()
         if (ch == 0)
         {
             writter.write("DATA/Result.txt", "");
-            for (int i = 0; i < vote.size(); i++)
+            for (int i = 0; i < candidate.size(); i++)
             {
-                writter.appendNewLine("DATA/Result.txt", vote[i] + " " + candidate[i] + "\n");
+                string s = to_string(vote[i]) + candidate[i] + "\n";
+                writter.appendNewLine("DATA/Result.txt", s);
             }
         }
         else if (ch == 1)
@@ -160,7 +173,7 @@ void voting()
             for (int i = 0; i < candidate.size(); i++)
             {
                 cout << "\n"
-                     << i + 1 << ". " << candidate[i];
+                     << i + 1 << "." << candidate[i];
             }
             cin >> v;
             vote[v - 1]++;
