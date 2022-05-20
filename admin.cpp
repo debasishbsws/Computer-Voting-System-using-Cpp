@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <conio.h>
 #include "fileHandling.cpp"
 
 using namespace std;
@@ -21,33 +22,44 @@ public:
 
 void adminC::seeResult()
 {
+    cout << endl;
     ifstream in("DATA/Result.txt");
     int voteCount;
     string line;
+    in >> voteCount;
+    getline(in, line);
     while (!in.eof())
     {
+        cout << endl
+             << "      " << line << " get total " << voteCount << " Votes." << endl;
         in >> voteCount;
         getline(in, line);
-        cout << line << " get " << voteCount << " Votes." << endl;
     }
 }
 
 void adminC::addVoters()
 {
-    cout << "Enter how many Voters : ";
+    cout << "       Now we are going to add new voters in voter list  " << endl
+         << endl;
+
+    cout << "       Enter how many Voters you want to add  : ";
     int n;
     cin >> n;
+    cout << endl
+         << endl;
     string VoterName, ID, dob;
     for (int i = 0; i < n; i++)
     {
         cin.ignore();
-        cout << "Enter the name of the Voter " << i + 1 << ": ";
+        cout << "       Enter the name of the Voter " << i + 1 << ": ";
         getline(cin, VoterName);
-        cout << "Enter the Voter ID of " << VoterName << ": ";
+        cout << "       Enter the Voter ID of " << VoterName << ": ";
         getline(cin, ID);
-        cout << "Enter the Date of Birth " << VoterName << ": ";
+        cout << "       Enter the Date of Birth " << VoterName << ": ";
         getline(cin, dob);
         writter.appendNewLine("DATA/VoterDetails.txt", ID + " " + VoterName + " " + dob + "\n");
+        cout << "-------------------------------------------------------------------------------\n"
+             << endl;
     }
 }
 
@@ -61,24 +73,24 @@ void adminC::startSetup()
 {
     reset();
     writter.write("DATA/Result.txt", "");
-    cout << "Enter how many Candidates: ";
+
+    cout << endl;
+    cout << "       Enter how many Candidates: ";
     int n;
     cin >> n;
     string candidateName, party, symbol;
     for (int i = 0; i < n; i++)
     {
         cin.ignore();
-        cout << "Enter the name of the candidate " << i + 1 << ": ";
+        cout << "       Enter the name of the candidate " << i + 1 << ": ";
         getline(cin, candidateName);
-        cout << "Enter the party name of the candidate " << candidateName << ": ";
+        cout << "       Enter the party name of the candidate " << candidateName << ": ";
         getline(cin, party);
-        cout << "Enter the symbol of the party " << party << ": ";
+        cout << "       Enter the symbol of the party " << party << ": ";
         getline(cin, symbol);
         writter.appendNewLine("DATA/Result.txt", "0 " + candidateName + " of party " + party + " (" + symbol + ")\n");
         cout << endl;
     }
-
-    cout << "\n You are Ready to start the Voting.\n";
 }
 
 void adminC::deleteAllVoters()
