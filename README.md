@@ -1,4 +1,4 @@
-# Computer_Voteing_System_using_C++
+# Computer_Voting_System_using_C++
 
 ### It is a small project suitable for school or college mini project.
 
