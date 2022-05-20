@@ -8,10 +8,10 @@ using namespace std;
 class adminC
 {
 private:
-    string password = "password";
     FileWritting writter;
 
 public:
+    string password = "password";
     void reset();
     void deleteAllVoters();
     void deleteVoter(string id);

@@ -11,7 +11,17 @@ FileWritting writter;
 void admin()
 {
     adminC ad;
-    int ch = 100;
+
+    cout << "       Enter the Admin password: ";
+    string p;
+    cin >> p;
+
+    if (p != ad.password)
+    {
+        return;
+    }
+
+        int ch = 100;
     while (ch != 0)
     {
         system("cls");
